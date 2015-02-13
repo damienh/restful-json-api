@@ -55,7 +55,8 @@ describe "Users API" do
 
     describe "DELETE api/v1/users/:id" do
       let(:auth_headers) {
-       { 'Accept' => "application/json" }
+       { 'Accept' => "application/json",
+         'Authorization' => 'Token token="foobar"'}
        }
       let(:user) { FactoryGirl.create(:user) }
 

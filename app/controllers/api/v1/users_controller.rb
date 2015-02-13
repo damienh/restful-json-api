@@ -1,6 +1,8 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      before_action :authenticate, only: [ :destroy ]
+      TOKEN = "foobar"
 
       def show
         @user = find_user
@@ -23,6 +25,12 @@ module Api
       end
 
       private
+
+      def authenticate
+        authenticate_or_request_with_http_token do |token|
+          token == TOKEN
+        end 
+      end
 
       def find_user
         @user = User.find(params[:id])
