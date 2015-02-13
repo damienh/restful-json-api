@@ -3,6 +3,8 @@ module Api
     class UsersController < ApplicationController
 
       def show
+        @user = find_user
+        render json: @user, status: 200
       end
 
       def create
