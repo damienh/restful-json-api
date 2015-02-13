@@ -13,10 +13,13 @@ module Api
           render json: @user, status: 201
         else
           render json: @user.errors, status: 442
-        end 
+        end
       end
 
       def destroy
+        @user = find_user
+        @user.destroy
+        head 204
       end
 
       private

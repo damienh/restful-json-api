@@ -54,8 +54,16 @@ describe "Users API" do
     end
 
     describe "DELETE api/v1/users/:id" do
+      let(:auth_headers) {
+       { 'Accept' => "application/json" }
+       }
+      let(:user) { FactoryGirl.create(:user) }
+
       it "deletes the requested user" do
 
+        delete "/api/v1/users/#{user.id}", {}, auth_headers
+
+        expect(response.status).to eq 204
       end
 
       context "with invalid users/:id" do
