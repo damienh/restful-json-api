@@ -1,6 +1,7 @@
 module Api
   module V1
     class UsersController < ApplicationController
+      rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
       before_action :authenticate, only: [ :destroy ]
       TOKEN = "foobar"
 
@@ -26,10 +27,14 @@ module Api
 
       private
 
+      def record_not_found
+        render json: "404 Record not found", status: 404
+      end
+
       def authenticate
         authenticate_or_request_with_http_token do |token|
           token == TOKEN
-        end 
+        end
       end
 
       def find_user

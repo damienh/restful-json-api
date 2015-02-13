@@ -68,14 +68,23 @@ describe "Users API" do
       end
 
       context "with invalid users/:id" do
-        it "responds with a 404 record cannot be found" do
 
+        it "responds with a 404 record cannot be found" do
+          delete "/api/v1/users/dfs", {}, auth_headers
+
+          expect(response.status).to eq 404
         end
       end
 
       context "with invalid token" do
+        let(:auth_headers) {
+         { 'Accept' => "application/json",
+           'Authorization' => 'Token token="de6821x"'}
+         }
         it "it states HTTP Token: Access denied." do
+          delete "/api/v1/users/#{user.id}", {}, auth_headers
 
+          expect(response.status).to eq 401
         end
       end
     end
