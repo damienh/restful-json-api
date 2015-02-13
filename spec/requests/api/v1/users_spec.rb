@@ -15,13 +15,40 @@ describe "Users API" do
     end
 
     describe "POST api/v1/users" do
+      let(:request_headers) {
+       { 'Accept' => 'application/json',
+         'Content-Type' => "application/json" }
+       }
       it "it creates a user" do
 
+        user_params = {
+          "user" => {
+            "username" => "damien",
+            "email" => "damien@me.com",
+            "password" => "gammonnthat123"
+          }
+        }.to_json
+
+        post "/api/v1/users", user_params, request_headers
+
+        expect(response.status).to eq 201
+        expect(User.last.username).to eq "damien"
       end
 
       context "with invalud attributes" do
         it "fails to create the user" do
 
+          user_params = {
+          "user" => {
+            "username" => "",
+            "email" => "damien@me.com",
+            "password" => "36363263267"
+          }
+        }.to_json
+
+        post "/api/v1/users", user_params, request_headers
+
+        expect(response.status).to eq 442
         end
       end
     end
