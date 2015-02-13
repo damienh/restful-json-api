@@ -35,7 +35,7 @@ describe "Users API" do
         expect(User.last.username).to eq "damien"
       end
 
-      context "with invalud attributes" do
+      context "with invalid attributes" do
         it "fails to create the user" do
 
           user_params = {
@@ -48,7 +48,7 @@ describe "Users API" do
 
         post "/api/v1/users", user_params, request_headers
 
-        expect(response.status).to eq 442
+        expect(response.status).to eq 400
         end
       end
     end
@@ -72,7 +72,7 @@ describe "Users API" do
         it "responds with a 404 record cannot be found" do
           delete "/api/v1/users/dfs", {}, auth_headers
 
-          expect(response.status).to eq 404
+          expect(response.status).to eq 400
         end
       end
 

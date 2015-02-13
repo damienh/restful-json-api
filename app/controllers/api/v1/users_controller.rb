@@ -15,7 +15,7 @@ module Api
         if @user.save
           render json: @user, status: 201
         else
-          render json: @user.errors, status: 442
+          render json: @user.errors, status: 400
         end
       end
 
@@ -28,7 +28,7 @@ module Api
       private
 
       def record_not_found
-        render json: "404 Record not found", status: 404
+        render json: "400 Bad Request", status: 400
       end
 
       def authenticate
